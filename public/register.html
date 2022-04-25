@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <h1> Register </h1>
+</head>
+<body>
+</div>
+ <div class ="bg">
+ <div class="loginContainer">
+   <form id="registerForm" action="register" method="post" enctype="application/x-www-form-urlencoded">
+    <label for= "name"> First name: </label><br>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for= "pass"> Password: (max 15 characters) </label><br>
+    <input type="password" id="pass" name="pass" maxlenght="15"  required><br>
+
+    <label for= "cpass"> Confirm Password: </label><br>
+    <input type="password" id="cpass" name="cpass" required><br>
+
+    <label for= "email"> Email: </label><br>
+    <input type="email" id="email" name="email" placeholder="example@gmail.com" required><br>
+ 
+   </form>
+   <button style="margin-top: 10px" class=registerBtn id=registerBtn onclick="register()"> Submit</button> 
+
+ </div>
+ </div>
+</body>
+<footer>
+ <p> Ricardo Muchacho. Ci:27849052 </p>
+</footer>
+
+<script src="scripts/register.js"></script>
+
+</html>
