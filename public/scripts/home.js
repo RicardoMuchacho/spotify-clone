@@ -18,6 +18,9 @@ var playlists = [];
 getSongs();
 getPlaylists();
 
+function comingSoon() {
+  alert("Coming Soon!");
+}
 async function getSongs() {
   removeAllChildNodes(contentList);
   await fetch("songs", {
