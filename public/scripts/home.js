@@ -17,6 +17,10 @@ var songs = [];
 var playlists = [];
 getSongs();
 getPlaylists();
+var currentSong = null;
+var previousSong = null;
+var currentSongCont = null;
+var previousSongCont = null;
 
 function comingSoon() {
   alert("Coming Soon!");
@@ -71,7 +75,7 @@ async function createSongDiv() {
     divTitle.classList.add("songTitle");
     divTitle.setAttribute("id", "songTitle-" + counter);
     divBtns.setAttribute("id", "actionbtn-div");
-    playBtn.setAttribute("id", "playBtn");
+    playBtn.setAttribute("id", "playBtn-" + counter);
     addBtn.setAttribute("id", "addToPlaylistBtn-" + counter);
     addBtn.setAttribute("onclick", "addToPlaylist(this)");
     playBtn.classList.add("action-btn");
@@ -98,10 +102,25 @@ async function createSongDiv() {
 
     counter++;
 
+    
     playBtn.addEventListener("click", () => {
       audio.play();
       var isPlaying = songCont.classList.contains("playing");
-
+      if (currentSong == null && !isPlaying){
+        currentSong = audio;
+        currentSongCont = playBtn.getAttribute("id");
+      } else if (currentSongCont != playBtn.getAttribute("id") && !isPlaying){
+        previousSong = currentSong;
+        currentSong = audio;
+        previousSongCont = currentSongCont;
+        currentSongCont = playBtn.getAttribute("id");
+      } 
+      console.log(previousSong)
+      console.log(currentSong)
+      console.log(currentSongCont)
+      console.log(previousSongCont)
+      // console.log(currentSongCont.classList.contains("playing"))
+      // console.log(previousSongCont.classList.contains("playing"))
       if (isPlaying) {
         audio.pause();
         songCont.classList.remove("playing");
@@ -110,6 +129,11 @@ async function createSongDiv() {
       } else {
         audio.play();
         songCont.classList.add("playing");
+        if (previousSong){
+          pause(previousSong)
+          document.getElementById(previousSongCont).querySelector("i.bi").classList.remove("bi-pause-circle");
+          document.getElementById(previousSongCont).querySelector("i.bi").classList.add("bi-play-circle");
+        }
         playBtn.querySelector("i.bi").classList.add("bi-pause-circle");
         playBtn.querySelector("i.bi").classList.remove("bi-play-circle");
       }
@@ -137,6 +161,14 @@ async function showSongs() {
     })
     .catch((err) => console.log(err));
   createSongDiv();
+}
+
+function pause(audio){
+  audio.pause()
+}
+
+function playSong(audio){
+  audio.play()
 }
 
 function removeAllChildNodes(parent) {
